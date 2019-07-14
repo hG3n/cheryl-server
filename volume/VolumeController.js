@@ -9,7 +9,7 @@ router.use(bodyParser.json());
 const fs = require('fs');
 const util = require('util');
 
-router.post('get/', async function (req, res) {
+router.get('/get/', async function (req, res) {
     try {
         const value = req.body.value;
         if (getSystemVolume(value)) return res.status(200).send({success: true});
@@ -20,7 +20,7 @@ router.post('get/', async function (req, res) {
     }
 });
 
-router.post('set/', async function (req, res) {
+router.post('/set/', async function (req, res) {
     try {
         const value = req.body.value;
         if (setSystemVolume(value)) return res.status(200).send({success: true});
@@ -31,7 +31,7 @@ router.post('set/', async function (req, res) {
     }
 });
 
-router.post('increment/', async function (req, res) {
+router.post('/increment/', async function (req, res) {
     try {
         if(setRelativeSystemVolume('+', req.body.precise)) {
             return res.status(200).send({success: true});
@@ -43,7 +43,7 @@ router.post('increment/', async function (req, res) {
     }
 });
 
-router.post('decrement/', async function (req, res) {
+router.post('/decrement/', async function (req, res) {
     try {
         if(setRelativeSystemVolume('-', req.body.precise)) {
             return res.status(200).send({success: true});
@@ -56,7 +56,7 @@ router.post('decrement/', async function (req, res) {
 });
 
 
-router.post('mute/', async function (req, res) {
+router.post('/mute/', async function (req, res) {
     try {
         if(muteSystem(req.body.mute)){
             return res.status(200).send({success: true});
