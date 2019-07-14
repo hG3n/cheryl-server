@@ -9,7 +9,7 @@ router.use(bodyParser.json());
 const fs = require('fs');
 const util = require('util');
 
-router.post('set/', async function (req, res) {
+router.post('get/', async function (req, res) {
     try {
         const value = req.body.value;
         if (getSystemVolume(value)) return res.status(200).send({success: true});
