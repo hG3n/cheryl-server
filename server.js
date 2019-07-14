@@ -5,5 +5,5 @@ let app = require('./app');
 
 // let server = app.listen( port, function () {
 let server = app.listen(42001, function () {
-    console.log('Express server listening on port ' + port);
+    console.log('Express server listening on port ' + 42001);
 });
