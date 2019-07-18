@@ -14,15 +14,14 @@ router.get('/', async function (req, res) {
     try {
         const value = req.body.value;
         let result = getEqualizerLevel();
-        try {
-            Promise.all(result,).then(
-                (values) => {
-                    console.log(values);
-                }
-            );
-        } catch (e) {
-            console.log(e);
-        }
+
+        console.log('results from level fetch', result);
+        
+        Promise.all(result).then(
+            (values) => {
+                console.log(values);
+            }
+        );
 
         if (result) return res.status(200).send(result);
         return res.status(500).send({success: false, message: "Error executing command!"});
@@ -140,7 +139,7 @@ function extractVolumeLevel(stdout) {
     console.log('left:', left);
     const right = parseInt(findVolumeLevel(right_splitted));
     console.log('righ:', right);
-    
+
 
     console.log('returing');
     return {
