@@ -91,69 +91,25 @@ router.post('/mute/', async function (req, res) {
 });
 
 
-function setSystemVolume(volume) {
-    const command = `amixer set Speaker ${volume}`;
-    exec(command, (err, stdout, stderr) => {
-        if (err) {
-            console.log("Error executing:", command);
-            return false;
-        }
-
-        // the *entire* stdout and stderr (buffered)
-        console.log(`stdout: ${stdout}`);
-        console.log(`stderr: ${stderr}`);
-        return true
-    });
-    return false;
-}
-
-function setRelativeSystemVolume(prefix, precise) {
-    let value = precise ? '2%' : '5%';
-    const command = `amixer set Speaker ${value}${prefix}`;
-    return new Promise((resolve, reject) => {
-        exec(command, (err, stdout, stderr) => {
-            if (err) {
-                console.log("Error executing:", command);
-                reject();
-            }
-            resolve(extractVolumeLevel(stdout));
-        });
-
-    });
-}
-
 function getEqualizerLevel() {
     const levels = [];
-    for (const element of constants.equalizer.frequencies) {
-        console.log(element);
 
-        const p = new Promise((resolve, reject) => {
-            exec(command, (error, stdout, stderr) => {
-                if (error) {
-                    console.warn("Error executing:", command);
+    for (const element of constants.equalizer.frequencies) {
+
+        const command = `sudo -u raspotify amixer -D equal sget "${element.property}"`;
+        return new Promise((resolve, reject) => {
+            exec(command, (err, stdout, stderr) => {
+                if (err) {
+                    console.log("Error executing:", command);
                     reject();
                 }
-                resolve(extractVolumeLevel(stdout));
+                extractVolumeLevel(stdout);
             });
+
         });
 
-        levels.push(p);
     }
-    return levels;
-}
 
-function getSystemVolume() {
-    const command = `amixer get Speaker`;
-
-    return new Promise((resolve, reject) => {
-        exec(command, (error, stdout, stderr) => {
-            if (error) {
-                console.warn("Error executing:", command);
-                reject();
-            }
-            resolve(extractVolumeLevel(stdout));
-        });
-    });
 }
 
 function extractVolumeLevel(stdout) {
@@ -197,23 +153,5 @@ function findVolumeLevel(array) {
     }
     return `${array[val_start + 1]}${array[val_start + 2]}`;
 }
-
-function muteSystem(mute) {
-    const value = mute ? 'mute' : 'unmute';
-    const command = `amixer set Speaker ${value}`;
-    return new Promise((resolve, reject) => {
-        exec(command, (err, stdout, stderr) => {
-            if (err) {
-                console.log("Error executing:", command);
-                reject();
-            }
-            console.log(`stdout: ${stdout}`);
-            console.log(`stderr: ${stderr}`);
-            resolve({success: true});
-        });
-
-    });
-}
-
 
 module.exports = router;
