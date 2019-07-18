@@ -12,7 +12,7 @@ const util = require('util');
 router.get('/', async function (req, res) {
     try {
         const value = req.body.value;
-        const result = await getSystemVolume(value);
+        let result = await getSystemVolume(value);
         console.log(result);
         // .then(
         // (value) => {
