@@ -13,7 +13,12 @@ const util = require('util');
 router.get('/', async function (req, res) {
     try {
         const value = req.body.value;
-        let result = await getSystemVolume(value);
+        let result = await getEqualizerLevel();
+        Promise.all(result,).then(
+            (values) => {
+                console.log(values);
+            }
+        );
         if (result) return res.status(200).send(result);
         return res.status(500).send({success: false, message: "Error executing command!"});
 
