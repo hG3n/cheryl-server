@@ -121,11 +121,7 @@ function setRelativeSystemVolume(prefix, precise) {
                 console.log("Error executing:", command);
                 reject();
             }
-            console.log(`stdout: ${stdout}`);
-            console.log(extractVolumeLevel(stdout));
-            console.log(`stderr: ${stderr}`);
-
-            resolve({success: true});
+            resolve(extractVolumeLevel(stdout));
         });
 
     });
