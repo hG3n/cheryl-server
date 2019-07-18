@@ -140,38 +140,41 @@ function getSystemVolume() {
                 console.warn("Error executing:", command);
                 reject();
             }
-            const lines = stdout.split("\n");
-
-            let counter = 0;
-            const lines_filtered = [];
-            for (const line of lines) {
-                const res = line.indexOf('[on]');
-                if (res > 0) {
-                    lines_filtered.push(line);
-                }
-            }
-
-            // filter left and right lines
-            const left_line = lines_filtered[0];
-            const right_line = lines_filtered[1];
-
-            // left and right splitted at Payback leave the values in the second array
-            const left_splitted = left_line.split("Playback")[1];
-            const right_splitted = right_line.split("Playback")[1];
-
-            const left = parseInt(findVolumeLevel(left_splitted));
-            const right = parseInt(findVolumeLevel(right_splitted));
-
-            const msg = {
-                volumes: {
-                    left: {pct: left},
-                    right: {pct: right},
-                    master: {pct: (left + right) / 2}
-                }
-            }
-            resolve(msg);
+            extractVolumeLevel(stdout);
         });
     });
+}
+
+function extractVolumeLevel(stdout) {
+
+    const lines = stdout.split("\n");
+
+    const lines_filtered = [];
+    for (const line of lines) {
+        const res = line.indexOf('[on]');
+        if (res > 0) {
+            lines_filtered.push(line);
+        }
+    }
+
+    // filter left and right lines
+    const left_line = lines_filtered[0];
+    const right_line = lines_filtered[1];
+
+    // left and right splitted at Payback leave the values in the second array
+    const left_splitted = left_line.split("Playback")[1];
+    const right_splitted = right_line.split("Playback")[1];
+
+    const left = parseInt(findVolumeLevel(left_splitted));
+    const right = parseInt(findVolumeLevel(right_splitted));
+
+    return {
+        volumes: {
+            left: {pct: left},
+            right: {pct: right},
+            master: {pct: (left + right) / 2}
+        }
+    };
 }
 
 function findVolumeLevel(array) {
