@@ -93,6 +93,7 @@ function getEqualizerLevel() {
                     console.log("Error executing:", command);
                     reject();
                 }
+                console.log(stderr);
                 extractVolumeLevel(stdout);
             });
 
@@ -103,7 +104,6 @@ function getEqualizerLevel() {
 }
 
 function extractVolumeLevel(stdout) {
-    console.log(stdout);
 
     const lines = stdout.split("\n");
 
