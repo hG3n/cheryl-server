@@ -13,7 +13,7 @@ const util = require('util');
 router.get('/', async function (req, res) {
     try {
         const value = req.body.value;
-        let result = await getEqualizerLevel();
+        let result = getEqualizerLevel();
         try {
             Promise.all(result,).then(
                 (values) => {
