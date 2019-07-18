@@ -15,6 +15,7 @@ router.get('/', async function (req, res) {
         let result = await getSystemVolume(value).then(
             (value) => {
                 if (value)
+                    console.log("whoooooooo");
                     return res.status(200).send({success: true, message: value});
                 return res.status(500).send({success: false, message: "Error executing command!"});
             },
