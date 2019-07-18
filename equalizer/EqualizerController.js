@@ -129,6 +129,7 @@ function extractVolumeLevel(stdout,) {
     const left_line = lines[line_nr + 1];
     const right_line = lines[line_nr + 2];
 
+    console.log(left_line, right_line);
     // left and right splitted at Payback leave the values in the second array
     const left_splitted = left_line.split("Playback")[1];
     const right_splitted = right_line.split("Playback")[1];
