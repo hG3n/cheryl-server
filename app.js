@@ -10,4 +10,7 @@ app.use('/info', InfoController);
 let VolumeController = require('./volume/VolumeController');
 app.use('/volume', VolumeController);
 
+let EqualizerController = require('./equalizer/EqualizerController');
+app.use('/equalizer', EqualizerController);
+
 module.exports = app;

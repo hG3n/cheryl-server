@@ -76,26 +76,6 @@ router.post('/lower/', async function (req, res) {
     }
 });
 
-
-router.post('/mute/', async function (req, res) {
-    try {
-        const result = await muteSystem(req.body.mute).then(
-            (value) => {
-                if (value)
-                    return res.status(200).send(value);
-                return res.status(500).send({success: false, message: "Error executing Command"});
-            },
-            () => {
-                return res.status(500).send({success: false, message: "Error executing Command"});
-            }
-        )
-    } catch (error) {
-        console.error(error);
-        return res.status(500).send({result: {message: "There was an error importing the data!"}});
-    }
-});
-
-
 function getEqualizerLevel() {
     const levels = [];
 
