@@ -139,7 +139,10 @@ function extractVolumeLevel(stdout) {
     const left = parseInt(findVolumeLevel(left_splitted));
     console.log('left:', left);
     const right = parseInt(findVolumeLevel(right_splitted));
+    console.log('righ:', right);
+    
 
+    console.log('returing');
     return {
         volumes: {
             left: {pct: left},
