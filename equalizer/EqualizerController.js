@@ -122,14 +122,14 @@ function extractVolumeLevel(stdout,) {
     for (const line of lines) {
         const res = line.indexOf('Mono:');
         if (res > 0) {
-            break;
+            break
         }
         ++line_nr;
     }
 
     // filter left and right lines
-    const left_line = lines_filtered[line_nr + 1];
-    const right_line = lines_filtered[line_nr + 2];
+    const left_line = lines[line_nr + 1];
+    const right_line = lines[line_nr + 2];
 
     // left and right splitted at Payback leave the values in the second array
     const left_splitted = left_line.split("Playback")[1];
