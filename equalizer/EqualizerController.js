@@ -19,6 +19,7 @@ router.get('/', async function (req, res) {
         
         Promise.all(result).then(
             (values) => {
+                console.log('iobsareuslt');
                 console.log(values);
             }
         );
