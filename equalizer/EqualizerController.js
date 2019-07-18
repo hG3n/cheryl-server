@@ -99,6 +99,8 @@ function getEqualizerLevel() {
                     console.log(stderr);
                     reject('dddd');
                 }
+                
+                console.log("MOHTAFUICKA STSOUJK", stdout);
 
                 extractVolumeLevel(stdout);
 
