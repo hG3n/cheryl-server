@@ -20,7 +20,10 @@ router.get('/', async function (req, res) {
             (values) => {
                 console.log('iobsareuslt');
                 console.log(values);
+                return values;
+
             }
+
         );
 
         // if (result) return res.status(200).send(result);
@@ -92,21 +95,13 @@ function getEqualizerLevel() {
                     console.log("Error executing:", command);
                     reject();
                 }
-
-                if (stdout == undefined) {
-                    console.log('stdout undefined motherfucker');
-                    console.log(stderr);
-                    reject('dddd');
-                }
-
-
-                console.log("Executing for", element.property, stderr);
                 resolve(extractVolumeLevel(stdout));
             });
 
         });
         levels.push(p);
     }
+
 
 }
 
