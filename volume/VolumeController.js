@@ -14,9 +14,9 @@ router.get('/', async function (req, res) {
         const value = req.body.value;
         let result = await getSystemVolume(value);
 
-        if (result) return res.status(200).send({success: true, message: value});
+        if (result) return res.status(200).send(result);
         return res.status(500).send({success: false, message: "Error executing command!"});
-        
+
     } catch (error) {
         console.error(error);
         return res.status(500).send({result: {message: "There was an error importing the data!"}});
