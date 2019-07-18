@@ -18,15 +18,10 @@ router.get('/', async function (req, res) {
         console.log('results from level fetch', result);
         Promise.all(result).then(
             (values) => {
-                console.log('iobsareuslt');
-                console.log(values);
-                return values;
+                return res.status(200).send(values);
             }
         );
-
-        // if (result) return res.status(200).send(result);
-        // return res.status(500).send({success: false, message: "Error executing command!"});
-
+        return res.status(500).send({success: false, message: "Error executing command!"});
     } catch (error) {
         console.error(error);
         return res.status(500).send({result: {message: "There was an error importing the data!"}});
@@ -87,7 +82,7 @@ function getEqualizerLevel() {
     for (const element of constants.equalizer.frequencies) {
 
         const command = `sudo -u raspotify amixer -D equal sget "${element.property}"`;
-        const p =  new Promise((resolve, reject) => {
+        const p = new Promise((resolve, reject) => {
             exec(command, (err, stdout, stderr) => {
                 if (err) {
                     console.log("Error executing:", command);
