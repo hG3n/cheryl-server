@@ -13,19 +13,18 @@ const util = require('util');
 router.get('/', async function (req, res) {
     try {
         const value = req.body.value;
-        let result = await getEqualizerLevel();
+        let result = getEqualizerLevel();
 
         console.log('results from level fetch', result);
-        
-        // Promise.all(result).then(
-        //     (values) => {
-        //         console.log('iobsareuslt');
-        //         console.log(values);
-        //     }
-        // );
+        Promise.all(result).then(
+            (values) => {
+                console.log('iobsareuslt');
+                console.log(values);
+            }
+        );
 
-        if (result) return res.status(200).send(result);
-        return res.status(500).send({success: false, message: "Error executing command!"});
+        // if (result) return res.status(200).send(result);
+        // return res.status(500).send({success: false, message: "Error executing command!"});
 
     } catch (error) {
         console.error(error);
@@ -130,19 +129,17 @@ function extractVolumeLevel(stdout) {
     const left_line = lines[line_nr + 1];
     const right_line = lines[line_nr + 2];
 
-    console.log('lines', left_line, right_line);
+    // console.log('lines', left_line, right_line);
     // left and right splitted at Payback leave the values in the second array
     const left_splitted = left_line.split("Playback")[1];
     const right_splitted = right_line.split("Playback")[1];
-    console.log('splitted:', left_splitted, right_splitted);
+    // console.log('splitted:', left_splitted, right_splitted);
 
     const left = parseInt(findVolumeLevel(left_splitted));
-    console.log('left:', left);
     const right = parseInt(findVolumeLevel(right_splitted));
-    console.log('righ:', right);
+    // console.log('left:', left); console.log('righ:', right);
 
 
-    console.log('returing');
     return {
         volumes: {
             left: {pct: left},
@@ -153,8 +150,8 @@ function extractVolumeLevel(stdout) {
 }
 
 function findVolumeLevel(array) {
-    const val_start = array.indexOf('[')
-    const val_end = array.indexOf(']')
+    const val_start = array.indexOf('[');
+    const val_end = array.indexOf(']');
     const diff = val_end - val_start;
     if (diff < 2) {
         return `${array[l_val_start + 1]}`
