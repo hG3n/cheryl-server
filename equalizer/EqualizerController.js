@@ -101,7 +101,7 @@ function getEqualizerLevel() {
                 }
 
 
-                console.log("MOHTAFUICKA STSOUJK", stderr);
+                console.log("Executing for", element.property, stderr);
 
                 extractVolumeLevel(stdout);
 
@@ -113,7 +113,7 @@ function getEqualizerLevel() {
 
 }
 
-function extractVolumeLevel(stdout,) {
+function extractVolumeLevel(stdout) {
 
     const lines = stdout.split("\n");
 
@@ -130,13 +130,14 @@ function extractVolumeLevel(stdout,) {
     const left_line = lines[line_nr + 1];
     const right_line = lines[line_nr + 2];
 
-    console.log(left_line, right_line);
+    console.log('lines', left_line, right_line);
     // left and right splitted at Payback leave the values in the second array
     const left_splitted = left_line.split("Playback")[1];
     const right_splitted = right_line.split("Playback")[1];
-    console.log(left_splitted, right_splitted);
+    console.log('splitted:', left_splitted, right_splitted);
 
     const left = parseInt(findVolumeLevel(left_splitted));
+    console.log('left:', left);
     const right = parseInt(findVolumeLevel(right_splitted));
 
     return {
