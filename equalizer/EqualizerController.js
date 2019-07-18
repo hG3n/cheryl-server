@@ -14,16 +14,13 @@ router.get('/', async function (req, res) {
     try {
         const value = req.body.value;
         let result = await getEqualizerLevel();
-        try{
-            
-        
-        Promise.all(result,).then(
-            (values) => {
-                console.log(values);
-            }
-        );
-        }
-        catch (e) {
+        try {
+            Promise.all(result,).then(
+                (values) => {
+                    console.log(values);
+                }
+            );
+        } catch (e) {
             console.log(e);
         }
 
@@ -106,6 +103,7 @@ function getEqualizerLevel() {
 }
 
 function extractVolumeLevel(stdout) {
+    console.log(stdout);
 
     const lines = stdout.split("\n");
 
