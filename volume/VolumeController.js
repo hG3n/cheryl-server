@@ -12,15 +12,17 @@ const util = require('util');
 router.get('/', async function (req, res) {
     try {
         const value = req.body.value;
-        const result = await getSystemVolume(value).then(
-            (value) => {
-                if (value)
-                    return res.status(200).send({success: true, message: value});
-                return res.status(500).send({success: false, message: "Error executing command!"});
-            },
-            () => {
-                return res.status(500).send({success: false, message: "Error executing Command"});
-            }
+        const result = await getSystemVolume(value);
+            console.log(result);
+            // .then(
+            // (value) => {
+            //     if (value)
+            //         return res.status(200).send({success: true, message: value});
+            //     return res.status(500).send({success: false, message: "Error executing command!"});
+            // },
+            // () => {
+            //     return res.status(500).send({success: false, message: "Error executing Command"});
+            // }
         );
     } catch (error) {
         console.error(error);
@@ -31,8 +33,7 @@ router.get('/', async function (req, res) {
 router.post('/', async function (req, res) {
     try {
         const value = req.body.value;
-
-
+        // const result = await setSystemVolume(value);
         if (setSystemVolume(value)) return res.status(200).send({success: true});
         return res.status(500).send({success: false, message: "Error executing command!"});
     } catch (error) {
