@@ -94,12 +94,12 @@ function getEqualizerLevel() {
                     reject();
                 }
 
-                if (stdout == undefined){
+                if (stdout == undefined) {
                     console.log('stdout undefined motherfucker');
                     console.log(stderr);
                     reject('dddd');
                 }
-                
+
                 console.log("MOHTAFUICKA STSOUJK", stdout);
 
                 extractVolumeLevel(stdout);
@@ -112,23 +112,24 @@ function getEqualizerLevel() {
 
 }
 
-function extractVolumeLevel(stdout) {
+function extractVolumeLevel(stdout,) {
 
     console.log('before split');
     const lines = stdout.split("\n");
     console.log('after split');
 
-    const lines_filtered = [];
+    let line_nr = 0;
     for (const line of lines) {
-        const res = line.indexOf('[on]');
+        const res = line.indexOf('Mono:');
         if (res > 0) {
-            lines_filtered.push(line);
+            break;
         }
+        ++line_nr;
     }
 
     // filter left and right lines
-    const left_line = lines_filtered[0];
-    const right_line = lines_filtered[1];
+    const left_line = lines_filtered[line_nr + 1];
+    const right_line = lines_filtered[line_nr + 2];
 
     // left and right splitted at Payback leave the values in the second array
     const left_splitted = left_line.split("Playback")[1];
