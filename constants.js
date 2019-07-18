@@ -50,7 +50,7 @@ const constants = {
             {
                 name: "16 kHz",
                 property: "00. 16 kHz",
-                position: 10
+                position: 9
             },
         ]
     }

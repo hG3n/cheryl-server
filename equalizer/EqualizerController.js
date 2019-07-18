@@ -93,8 +93,15 @@ function getEqualizerLevel() {
                     console.log("Error executing:", command);
                     reject();
                 }
-                console.log(stderr);
+
+                if (stdout == undefined){
+                    console.log('stdout undefined motherfucker');
+                    console.log(stderr);
+                    reject('dddd');
+                }
+
                 extractVolumeLevel(stdout);
+
             });
 
         });
