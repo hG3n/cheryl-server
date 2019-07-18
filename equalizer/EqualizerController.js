@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const {exec} = require('child_process');
-const constants = require('constants');
+const constants = require('../constants');
 
 router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
@@ -14,11 +14,19 @@ router.get('/', async function (req, res) {
     try {
         const value = req.body.value;
         let result = await getEqualizerLevel();
+        try{
+            
+        
         Promise.all(result,).then(
             (values) => {
                 console.log(values);
             }
         );
+        }
+        catch (e) {
+            console.log(e);
+        }
+
         if (result) return res.status(200).send(result);
         return res.status(500).send({success: false, message: "Error executing command!"});
 

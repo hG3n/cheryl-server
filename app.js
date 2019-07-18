@@ -1,8 +1,8 @@
-const express = require( 'express' );
+const express = require('express');
 const app = express();
-const morgan = require( 'morgan' );
+const morgan = require('morgan');
 
-app.use( morgan( 'dev' ) );
+app.use(morgan('dev'));
 
 let InfoController = require('./info/InfoController');
 app.use('/info', InfoController);
