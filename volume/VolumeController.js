@@ -13,17 +13,17 @@ router.get('/', async function (req, res) {
     try {
         const value = req.body.value;
         const result = await getSystemVolume(value);
-            console.log(result);
-            // .then(
-            // (value) => {
-            //     if (value)
-            //         return res.status(200).send({success: true, message: value});
-            //     return res.status(500).send({success: false, message: "Error executing command!"});
-            // },
-            // () => {
-            //     return res.status(500).send({success: false, message: "Error executing Command"});
-            // }
-        );
+        console.log(result);
+        // .then(
+        // (value) => {
+        //     if (value)
+        //         return res.status(200).send({success: true, message: value});
+        //     return res.status(500).send({success: false, message: "Error executing command!"});
+        // },
+        // () => {
+        //     return res.status(500).send({success: false, message: "Error executing Command"});
+        // }
+        // );
     } catch (error) {
         console.error(error);
         return res.status(500).send({result: {message: "There was an error importing the data!"}});
