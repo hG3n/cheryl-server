@@ -86,7 +86,7 @@ function getEqualizerLevel() {
     for (const element of constants.equalizer.frequencies) {
 
         const command = `sudo -u raspotify amixer -D equal sget "${element.property}"`;
-        return new Promise((resolve, reject) => {
+        const p =  new Promise((resolve, reject) => {
             exec(command, (err, stdout, stderr) => {
                 if (err) {
                     console.log("Error executing:", command);
@@ -105,7 +105,7 @@ function getEqualizerLevel() {
             });
 
         });
-
+        levels.push(p);
     }
 
 }
