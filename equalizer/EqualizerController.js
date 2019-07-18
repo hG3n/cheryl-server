@@ -101,9 +101,7 @@ function getEqualizerLevel() {
 
 
                 console.log("Executing for", element.property, stderr);
-
-                extractVolumeLevel(stdout);
-
+                resolve(extractVolumeLevel(stdout));
             });
 
         });
