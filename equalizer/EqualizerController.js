@@ -114,7 +114,9 @@ function getEqualizerLevel() {
 
 function extractVolumeLevel(stdout) {
 
+    console.log('before split');
     const lines = stdout.split("\n");
+    console.log('after split');
 
     const lines_filtered = [];
     for (const line of lines) {
