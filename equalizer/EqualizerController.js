@@ -21,9 +21,7 @@ router.get('/', async function (req, res) {
                 console.log('iobsareuslt');
                 console.log(values);
                 return values;
-
             }
-
         );
 
         // if (result) return res.status(200).send(result);
@@ -102,7 +100,7 @@ function getEqualizerLevel() {
         levels.push(p);
     }
 
-
+    return levels;
 }
 
 function extractVolumeLevel(stdout) {
