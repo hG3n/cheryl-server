@@ -25,9 +25,11 @@ router.get('/', async function (req, res) {
     }
 });
 
-router.put('/', async function (req, res) {
+router.put('/:position', async function (req, res) {
     try {
-        const value = req.body.value;
+        const element_position = req.params.position;
+        console.log(element_position);
+        const result = await setEqualizerLevel(element_position, )
         // const result = await setSystemVolume(value);
         // if (setSystemVolume(value)) return res.status(200).send({success: true});
         // return res.status(500).send({success: false, message: "Error executing command!"});
@@ -96,6 +98,26 @@ function getEqualizerLevel() {
     }
 
     return levels;
+}
+
+function setEqualizerLevel(handle_position, level) {
+
+    const element = constants.equalizer.frequencies.find(value => value.position === handle_position);
+    const command = constants.commands.equalizer.set + ` "${element.property}" ${level}%`;
+    return new Promise((resolve, reject) => {
+        exec(command, (err, stdout, stderr) => {
+            if (err) {
+                console.log("Error executing:", command);
+                reject();
+            }
+
+            const res = {
+                channel: element,
+                volume: extractVolumeLevel(stdout)
+            };
+            resolve(res);
+        });
+    });
 }
 
 function extractVolumeLevel(stdout) {
