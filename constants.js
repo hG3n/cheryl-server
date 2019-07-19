@@ -9,8 +9,7 @@ const constants = {
             get: 'sudo -u raspotify amixer -D equal sget ',
             set: 'sudo -u raspotify amixer -D equal sset '
         }
-
-    }
+    },
     equalizer: {
         frequencies: [
             {
