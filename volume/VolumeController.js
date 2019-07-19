@@ -22,7 +22,7 @@ router.get('/', async function (req, res) {
     }
 });
 
-router.put('/:volume', async function (req, res) {
+router.put('/discrete/:volume', async function (req, res) {
     try {
         const result = await setSystemVolume(req.params.volume);
         if (result) return res.status(200).send(result);
@@ -55,7 +55,7 @@ router.post('/lower/', async function (req, res) {
     }
 });
 
-router.put('/mute/', async function (req, res) {
+router.post('/mute/', async function (req, res) {
     try {
         const result = await muteSystem();
         if (result) return res.status(200).send(result);
@@ -99,8 +99,10 @@ function setRelativeSystemVolume(prefix, precise) {
 }
 
 function muteSystem() {
+    console.log('dasa');
     const command = constants.commands.volume.toggle;
     console.log('mute command', command);
+    console.log('hfhhfhf');
     return new Promise((resolve, reject) => {
         exec(command, (err, stdout, stderr) => {
             if (err) {
