@@ -55,9 +55,9 @@ router.post('/lower/', async function (req, res) {
     }
 });
 
-router.put('/mute/:value', async function (req, res) {
+router.put('/mute/', async function (req, res) {
     try {
-        const result = await muteSystem(req.params.value);
+        const result = await muteSystem();
         if (result) return res.status(200).send(result);
         return res.status(500).send({success: false, message: "Error executing Command"});
     } catch (error) {
@@ -98,7 +98,7 @@ function setRelativeSystemVolume(prefix, precise) {
     });
 }
 
-function muteSystem(mute) {
+function muteSystem() {
     const command = constants.commands.volume.toggle;
     return new Promise((resolve, reject) => {
         exec(command, (err, stdout, stderr) => {
