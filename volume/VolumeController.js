@@ -161,7 +161,7 @@ function findVolumeLevel(array) {
     } else if (diff === 4) {
         return `${array[val_start + 1]}${array[val_start + 2]}`
     }
-    return `${array[val_start + 1]}${array[val_start + 3]}`;
+    return `${array[val_start + 1]}${array[val_start + 2]}${array[val_start + 3]}`;
 }
 
 function muteSystem(mute) {
