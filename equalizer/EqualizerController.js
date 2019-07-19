@@ -131,9 +131,9 @@ function extractVolumeLevel(stdout) {
     }
 
     const left_line = lines[line_nr + 1];
-    const left_muted = left_line.contains('[off]');
+    const left_muted = left_line.includes('[off]');
     const right_line = lines[line_nr + 2];
-    const right_muted = right_line.contains('[off]');
+    const right_muted = right_line.includes('[off]');
     const left_splitted = left_line.split("Playback")[1];
     const right_splitted = right_line.split("Playback")[1];
     const left = parseInt(findVolumeLevel(left_splitted));
