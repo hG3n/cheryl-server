@@ -143,7 +143,14 @@ function extractVolumeLevel(stdout) {
 
     // filter left and right lines
     const left_line = lines[line_nr + 1];
+    if(left_line.contains('[off]')){
+        console.log('off');
+    }
+
     const right_line = lines[line_nr + 2];
+    if(right.contains('[off]')){
+        console.log('off');
+    }
     const left_splitted = left_line.split("Playback")[1];
     const right_splitted = right_line.split("Playback")[1];
     const left = parseInt(findVolumeLevel(left_splitted));
