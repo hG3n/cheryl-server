@@ -100,7 +100,7 @@ function getEqualizerLevel() {
 function setEqualizerLevel(handle_position, level) {
 
     const element = constants.equalizer.frequencies.find((el) => {
-        console.log('element', el.position, handle_position);
+        console.log('element', el.position == handle_position);
         return el.position === handle_position
     });
     console.log(constants.equalizer.frequencies);
