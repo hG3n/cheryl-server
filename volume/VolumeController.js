@@ -24,7 +24,7 @@ router.get('/', async function (req, res) {
 
 router.put('/:volume', async function (req, res) {
     try {
-        const result = await setSystemVolume(req.params.value);
+        const result = await setSystemVolume(req.params.volume);
         if (result) return res.status(200).send(result);
         return res.status(500).send({success: false, message: "Error executing command!"});
     } catch (error) {
