@@ -22,10 +22,9 @@ router.get('/', async function (req, res) {
     }
 });
 
-router.post('/', async function (req, res) {
+router.put('/:volume', async function (req, res) {
     try {
-        const value = req.body.value;
-        const result = await setSystemVolume(value);
+        const result = await setSystemVolume(req.params.value);
         if (result) return res.status(200).send(result);
         return res.status(500).send({success: false, message: "Error executing command!"});
     } catch (error) {
