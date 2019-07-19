@@ -1,5 +1,11 @@
 const constants = {
     sources: [],
+    commands: {
+        volume: {
+            get: 'amixer '
+        }
+
+    }
     equalizer: {
         frequencies: [
             {
