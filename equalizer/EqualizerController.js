@@ -25,11 +25,12 @@ router.get('/', async function (req, res) {
     }
 });
 
-router.put('/:position', async function (req, res) {
+router.put('/:position/:value', async function (req, res) {
     try {
         const element_position = req.params.position;
         console.log(element_position);
-        const result = await setEqualizerLevel(element_position, )
+        console.log(req.params);
+        const result = await setEqualizerLevel(element_position, req.params.value);
         // const result = await setSystemVolume(value);
         // if (setSystemVolume(value)) return res.status(200).send({success: true});
         // return res.status(500).send({success: false, message: "Error executing command!"});
