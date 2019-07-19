@@ -99,8 +99,7 @@ function setRelativeSystemVolume(prefix, precise) {
 }
 
 function muteSystem(mute) {
-    const value = mute ? 'mute' : 'unmute';
-    const command = constants.commands.volume.set + ` ${value}`;
+    const command = constants.commands.volume.toggle;
     return new Promise((resolve, reject) => {
         exec(command, (err, stdout, stderr) => {
             if (err) {
