@@ -99,7 +99,10 @@ function getEqualizerLevel() {
 
 function setEqualizerLevel(handle_position, level) {
 
-    const element = constants.equalizer.frequencies.find((el) => el.position === handle_position);
+    const element = constants.equalizer.frequencies.find((el) => {
+        console.log('element', el);
+        return el.position === handle_position
+    });
     console.log(constants.equalizer.frequencies);
     console.log('found element', element);
     const command = constants.commands.equalizer.set + ` "${element.property}" ${level}%`;
