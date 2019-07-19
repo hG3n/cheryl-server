@@ -55,18 +55,11 @@ router.post('/lower/', async function (req, res) {
     }
 });
 
-router.post('/mute/', async function (req, res) {
+router.put('/mute/:value', async function (req, res) {
     try {
-        const result = await muteSystem(req.body.mute).then(
-            (value) => {
-                if (value)
-                    return res.status(200).send(value);
-                return res.status(500).send({success: false, message: "Error executing Command"});
-            },
-            () => {
-                return res.status(500).send({success: false, message: "Error executing Command"});
-            }
-        )
+        const result = await muteSystem(req.params.value);
+        if (result) return res.status(200).send(result);
+        return res.status(500).send({success: false, message: "Error executing Command"});
     } catch (error) {
         console.error(error);
         return res.status(500).send({result: {message: "There was an error importing the data!"}});
@@ -93,6 +86,21 @@ function setRelativeSystemVolume(prefix, precise) {
     console.log('vol commands', constants.commands);
     const command = constants.commands.volume.set + ` ${value}${prefix}`;
     console.log('cmd', command);
+    return new Promise((resolve, reject) => {
+        exec(command, (err, stdout, stderr) => {
+            if (err) {
+                console.log("Error executing:", command);
+                reject();
+            }
+            resolve(extractVolumeLevel(stdout));
+        });
+
+    });
+}
+
+function muteSystem(mute) {
+    const value = mute ? 'mute' : 'unmute';
+    const command = constants.commands.volume.set + ` ${value}`;
     return new Promise((resolve, reject) => {
         exec(command, (err, stdout, stderr) => {
             if (err) {
@@ -162,23 +170,6 @@ function findVolumeLevel(array) {
         return `${array[val_start + 1]}${array[val_start + 2]}`
     }
     return `${array[val_start + 1]}${array[val_start + 2]}${array[val_start + 3]}`;
-}
-
-function muteSystem(mute) {
-    const value = mute ? 'mute' : 'unmute';
-    const command = constants.commands.volume.set + ` ${value}`;
-    return new Promise((resolve, reject) => {
-        exec(command, (err, stdout, stderr) => {
-            if (err) {
-                console.log("Error executing:", command);
-                reject();
-            }
-            console.log(`stdout: ${stdout}`);
-            console.log(`stderr: ${stderr}`);
-            resolve({success: true});
-        });
-
-    });
 }
 
 
