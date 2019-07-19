@@ -151,6 +151,7 @@ function extractVolumeLevel(stdout) {
 }
 
 function findVolumeLevel(array) {
+    console.log(array);
     const val_start = array.indexOf('[');
     const val_end = array.indexOf(']');
     const diff = val_end - val_start;
