@@ -27,13 +27,9 @@ router.get('/', async function (req, res) {
 
 router.put('/:position/:value', async function (req, res) {
     try {
-        const element_position = req.params.position;
-        console.log(element_position);
-        console.log(req.params);
-        const result = await setEqualizerLevel(element_position, req.params.value);
-        // const result = await setSystemVolume(value);
-        // if (setSystemVolume(value)) return res.status(200).send({success: true});
-        // return res.status(500).send({success: false, message: "Error executing command!"});
+        const result = await setEqualizerLevel(req.params.position, req.params.value);
+        if (result) return res.status(200).send(result);
+        return res.status(500).send({success: false, message: "Error executing command!"});
     } catch (error) {
         console.error(error);
         return res.status(500).send({result: {message: "There was an error importing the data!"}});
