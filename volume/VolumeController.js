@@ -142,7 +142,7 @@ function extractVolumeLevel(stdout) {
     const right = parseInt(findVolumeLevel(right_splitted));
 
     return {
-        volumes: {
+        levels: {
             left: {pct: left},
             right: {pct: right},
             master: {pct: (left + right) / 2}

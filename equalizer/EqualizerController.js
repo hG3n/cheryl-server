@@ -110,7 +110,7 @@ function setEqualizerLevel(handle_position, level) {
 
             const res = {
                 channel: element,
-                volume: extractVolumeLevel(stdout)
+                levels: extractVolumeLevel(stdout)
             };
             resolve(res);
         });
@@ -139,11 +139,9 @@ function extractVolumeLevel(stdout) {
     const right = parseInt(findVolumeLevel(right_splitted));
 
     return {
-        volumes: {
-            left: {pct: left},
-            right: {pct: right},
-            master: {pct: (left + right) / 2}
-        }
+        left: {pct: left},
+        right: {pct: right},
+        master: {pct: (left + right) / 2}
     };
 }
 
