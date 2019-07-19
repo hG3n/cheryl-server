@@ -63,7 +63,6 @@ router.post('/lower/', async function (req, res) {
     }
 });
 
-
 router.post('/mute/', async function (req, res) {
     try {
         const result = await muteSystem(req.body.mute).then(
@@ -84,24 +83,21 @@ router.post('/mute/', async function (req, res) {
 
 
 function setSystemVolume(volume) {
-    const command = `amixer set Speaker ${volume}`;
-    exec(command, (err, stdout, stderr) => {
-        if (err) {
-            console.log("Error executing:", command);
-            return false;
-        }
-
-        // the *entire* stdout and stderr (buffered)
-        console.log(`stdout: ${stdout}`);
-        console.log(`stderr: ${stderr}`);
-        return true
+    const command = constants.commands.volume.set + ` ${volume}`;
+    return new Promise((resolve, reject) => {
+        exec(command, (err, stdout, stderr) => {
+            if (err) {
+                console.log("Error executing:", command);
+                reject({success: false})
+            }
+            resolve(extractVolumeLevel(stdout));
+        });
     });
-    return false;
 }
 
 function setRelativeSystemVolume(prefix, precise) {
     let value = precise ? '2%' : '5%';
-    const command = `amixer set Speaker ${value}${prefix}`;
+    const command = constants.commands.volume.set + ` ${value}${prefix}`;
     return new Promise((resolve, reject) => {
         exec(command, (err, stdout, stderr) => {
             if (err) {
@@ -115,8 +111,7 @@ function setRelativeSystemVolume(prefix, precise) {
 }
 
 function getSystemVolume() {
-    const command = `amixer get Speaker`;
-
+    const command = constants.commands.volume.get;
     return new Promise((resolve, reject) => {
         exec(command, (error, stdout, stderr) => {
             if (error) {
@@ -172,7 +167,7 @@ function findVolumeLevel(array) {
 
 function muteSystem(mute) {
     const value = mute ? 'mute' : 'unmute';
-    const command = `amixer set Speaker ${value}`;
+    const command = constants.commands.volume.set + ` ${value}`;
     return new Promise((resolve, reject) => {
         exec(command, (err, stdout, stderr) => {
             if (err) {

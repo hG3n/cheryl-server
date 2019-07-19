@@ -77,8 +77,7 @@ function getEqualizerLevel() {
     const levels = [];
 
     for (const element of constants.equalizer.frequencies) {
-
-        const command = `sudo -u raspotify amixer -D equal sget "${element.property}"`;
+        const command = constants.commands.equalizer.get + ` ${element.property}`;
         const p = new Promise((resolve, reject) => {
             exec(command, (err, stdout, stderr) => {
                 if (err) {
