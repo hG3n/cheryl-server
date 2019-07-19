@@ -2,12 +2,12 @@ const constants = {
     sources: [],
     commands: {
         volume: {
-            get: 'amixer get Speaker ',
-            set: 'amixer set Speaker '
+            get: 'amixer get Speaker',
+            set: 'amixer set Speaker'
         },
         equalizer: {
-            get: 'sudo -u raspotify amixer -D equal sget ',
-            set: 'sudo -u raspotify amixer -D equal sset '
+            get: 'sudo -u raspotify amixer -D equal sget',
+            set: 'sudo -u raspotify amixer -D equal sset'
         }
     },
     equalizer: {
