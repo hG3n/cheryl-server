@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const {exec} = require('child_process');
-const constants = require('constants');
+const constants = require('../constants');
 
 router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
