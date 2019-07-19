@@ -55,7 +55,7 @@ router.post('/lower/', async function (req, res) {
     }
 });
 
-router.post('/mute/', async function (req, res) {
+router.put('/mute/', async function (req, res) {
     try {
         const result = await muteSystem();
         if (result) return res.status(200).send(result);
