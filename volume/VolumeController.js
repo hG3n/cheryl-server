@@ -25,8 +25,8 @@ router.get('/', async function (req, res) {
 router.post('/', async function (req, res) {
     try {
         const value = req.body.value;
-        // const result = await setSystemVolume(value);
-        if (setSystemVolume(value)) return res.status(200).send({success: true});
+        const result = await setSystemVolume(value);
+        if (result) return res.status(200).send(result);
         return res.status(500).send({success: false, message: "Error executing command!"});
     } catch (error) {
         console.error(error);
@@ -151,11 +151,14 @@ function extractVolumeLevel(stdout) {
 }
 
 function findVolumeLevel(array) {
-    const val_start = array.indexOf('[')
-    const val_end = array.indexOf(']')
+    const val_start = array.indexOf('[');
+    const val_end = array.indexOf(']');
     const diff = val_end - val_start;
     if (diff < 2) {
         return `${array[l_val_start + 1]}`
+    }
+    if (diff < 3) {
+        return `${array[l_val_start + 2]}`
     }
     return `${array[val_start + 1]}${array[val_start + 2]}`;
 }
