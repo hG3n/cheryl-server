@@ -76,6 +76,7 @@ router.post('/mute/', async function (req, res) {
 
 function setSystemVolume(volume) {
     const command = constants.commands.volume.set + ` ${volume}`;
+    console.log(command);
     return new Promise((resolve, reject) => {
         exec(command, (err, stdout, stderr) => {
             if (err) {
