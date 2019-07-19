@@ -37,7 +37,7 @@ router.post('/', async function (req, res) {
 router.post('/raise/', async function (req, res) {
     try {
         const result = await setRelativeSystemVolume('+', req.body.precision);
-        if (result) return res.status(200).send(value);
+        if (result) return res.status(200).send(result);
         return res.status(500).send({success: false, message: "Error setting value!"});
     } catch (error) {
         console.error(error);
@@ -47,16 +47,9 @@ router.post('/raise/', async function (req, res) {
 
 router.post('/lower/', async function (req, res) {
     try {
-        const result = await setRelativeSystemVolume('-', req.body.precision).then(
-            (value) => {
-                if (value)
-                    return res.status(200).send(value);
-                return res.status(500).send({success: false, message: "Error setting value!"});
-            },
-            () => {
-                return res.status(500).send({success: false, message: "Error executing Command"});
-            }
-        );
+        const result = await setRelativeSystemVolume('-', req.body.precision);
+        if (result) return res.status(200).send(result);
+        return res.status(500).send({success: false, message: "Error setting value!"});
     } catch (error) {
         console.error(error);
         return res.status(500).send({result: {message: "There was an error importing the data!"}});
