@@ -86,7 +86,7 @@ function getEqualizerLevel() {
                 }
                 const res = {
                     channel: element,
-                    volume: extractVolumeLevel(stdout)
+                    levels: extractVolumeLevel(stdout)
                 };
                 resolve(res);
             });
