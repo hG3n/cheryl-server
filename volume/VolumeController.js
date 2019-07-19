@@ -98,6 +98,7 @@ function setSystemVolume(volume) {
 function setRelativeSystemVolume(prefix, precise) {
     let value = precise ? '2%' : '5%';
     const command = constants.commands.volume.set + ` ${value}${prefix}`;
+    console.log('cmd', command);
     return new Promise((resolve, reject) => {
         exec(command, (err, stdout, stderr) => {
             if (err) {

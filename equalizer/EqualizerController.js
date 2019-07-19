@@ -72,6 +72,7 @@ router.post('/lower/', async function (req, res) {
     }
 });
 
+
 function getEqualizerLevel() {
     const levels = [];
 
@@ -98,7 +99,6 @@ function getEqualizerLevel() {
 }
 
 function setEqualizerLevel(handle_position, level) {
-
     const element = constants.equalizer.frequencies.find((el) => el.position === parseInt(handle_position));
     const command = constants.commands.equalizer.set + ` "${element.property}" ${level}%`;
     return new Promise((resolve, reject) => {
@@ -133,17 +133,10 @@ function extractVolumeLevel(stdout) {
     // filter left and right lines
     const left_line = lines[line_nr + 1];
     const right_line = lines[line_nr + 2];
-
-    // console.log('lines', left_line, right_line);
-    // left and right splitted at Payback leave the values in the second array
     const left_splitted = left_line.split("Playback")[1];
     const right_splitted = right_line.split("Playback")[1];
-    // console.log('splitted:', left_splitted, right_splitted);
-
     const left = parseInt(findVolumeLevel(left_splitted));
     const right = parseInt(findVolumeLevel(right_splitted));
-    // console.log('left:', left); console.log('righ:', right);
-
 
     return {
         volumes: {
