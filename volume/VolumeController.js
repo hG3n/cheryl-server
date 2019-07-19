@@ -157,11 +157,11 @@ function findVolumeLevel(array) {
     const diff = val_end - val_start;
     console.log(diff);
     if (diff < 2) {
-        return `${array[l_val_start + 1]}`
+        return `${array[val_start + 1]}`
     }
-    if (diff >= 2) {
-        return `${array[l_val_start + 2]}`
-    }
+    // if (diff >= 2) {
+    //     return `${array[val_start + 2]}`
+    // }
     return `${array[val_start + 1]}${array[val_start + 2]}`;
 }
 
